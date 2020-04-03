@@ -13,6 +13,7 @@
 
 let currentTab;
 
+
 let checkBox = document.getElementById('stateSaver')
 
 chrome.tabs.query({active: true, currentWindow: true}, tabs => {
@@ -33,7 +34,9 @@ checkBox.addEventListener( 'change', function() {
 
     if(this.checked) {
         let value = {}; 
-        value[currentTab]=0; 
+        let backgroundPage = chrome.extension.getBackgroundPage(); 
+        let scrollYPositionHere = backgroundPage.scrollYPosition; 
+        value[currentTab]= scrollYPositionHere; 
 
         chrome.storage.local.set(value, function() {
           });

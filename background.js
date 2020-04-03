@@ -3,6 +3,7 @@
 // okay so when do we save state then? when the active tab is changed or when the tab is removed.. so it the two cases! 
 
 let currentTab; 
+var scrollYPosition; 
 
 chrome.tabs.onUpdated.addListener(function(tabId,changeInfo,tab){
     if(changeInfo.status=="complete"){
@@ -25,6 +26,10 @@ chrome.tabs.onUpdated.addListener(function(tabId,changeInfo,tab){
 
 chrome.runtime.onMessage.addListener(
     function(message, sender, sendResponse) {
+        const localKeys = Object.keys(message); 
+        
+        scrollYPosition = message[localKeys[0]];
+
         chrome.storage.local.set(message, function() {
         });    
 });
