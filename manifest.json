@@ -1,0 +1,25 @@
+{
+    "name": "ScrollStateSaver",
+    "version": "1.0",
+    "description": "You may need to have your scroll state saved. Why not do it here?",
+    "manifest_version": 2, 
+    "content_scripts":[
+        {   
+            "matches": ["<all_urls>"],
+            "js":["content.js"]
+        }
+    ], 
+    "background":{
+        "scripts": ["background.js"]
+    }, 
+    "browser_action": {
+        "default_icon": "stateSaver.png", 
+        "default_popup": "popup.html"
+    },  
+    "permissions": [
+        "storage",
+        "unlimitedStorage", 
+        "tabs"
+    ]
+}
+
