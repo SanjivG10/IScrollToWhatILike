@@ -18,7 +18,7 @@ let checkBox = document.getElementById('stateSaver')
 
 chrome.tabs.query({active: true, currentWindow: true}, tabs => {
     currentTab=tabs[0].url.toString().trim(); 
-    
+
     chrome.storage.local.get(currentTab, function(result) {
         const totalKeys = Object.keys(result)
         if (totalKeys.length){
@@ -41,7 +41,6 @@ checkBox.addEventListener( 'change', function() {
         chrome.storage.local.set(value, function() {
           });
     } else {
-        // uncheck which means I have removed it! 
         chrome.storage.local.remove(currentTab,function(){
         })
     }

@@ -27,11 +27,17 @@ chrome.tabs.onUpdated.addListener(function(tabId,changeInfo,tab){
 chrome.runtime.onMessage.addListener(
     function(message, sender, sendResponse) {
         const localKeys = Object.keys(message); 
-        
-        scrollYPosition = message[localKeys[0]];
+        const currentURL = localKeys[0]
+        scrollYPosition = message[currentURL];
 
-        chrome.storage.local.set(message, function() {
-        });    
+        chrome.storage.local.get(currentURL,function(result){
+            const totalKeys = Object.keys(result)
+                if (totalKeys.length){
+                    // scroll position of the site which has previously been saved has changed! so we update it
+                    chrome.storage.local.set(message, function() {
+                    });
+                }
+        })
 });
 
 chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
